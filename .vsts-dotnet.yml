@@ -43,12 +43,12 @@ steps:
   displayName: Set version with nbgv
   inputs:
     filename: 'artifacts\nbgv.exe'
-    arguments: 'cloud'
+    arguments: 'cloud --all-vars'
 
 - task: ms-vseng.MicroBuildTasks.32f78468-e895-4f47-962c-58a699361df8.MicroBuildSwixPlugin@1
   displayName: Install Swix Plugin
   inputs:
-    dropName: 'Products/$(System.TeamProject)/$(Build.Repository.Name)/$(Build.SourceBranchName)/$(Build.BuildNumber)/$(Build.BuildId)'
+    dropName: 'Products/$(System.TeamProject)/$(Build.Repository.Name)/$(Build.SourceBranchName)/$(NBGV_SemVer1)/$(Build.BuildId)'
 
 - task: CmdLine@1
   displayName: restore build number
@@ -77,7 +77,7 @@ steps:
   condition: always()
 
 - task: CmdLine@1
-  displayName: Set build version to meaningful one again
+  displayName: Set build version to meaningful one
   inputs:
     filename: 'artifacts\nbgv.exe'
     arguments: 'cloud'
